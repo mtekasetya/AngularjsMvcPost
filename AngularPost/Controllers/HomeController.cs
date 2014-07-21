@@ -17,7 +17,6 @@ namespace AngularPost.Controllers
             return View();
         }
 
-        [ValidateAntiForgeryToken]
         public ActionResult Save1(CustomerVm customer)
         {
             //TODO: Do some stuffs...

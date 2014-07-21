@@ -53,9 +53,9 @@ myApp.factory('customerSvc', function ($http) {
             $http({
                 method: 'POST',
                 url: '/Home/Save2',
-                dataType: 'json',
-                //contentType: 'application/x-www-form-urlencoded; charset-UTF-8',
-                contentType: 'application/json; charset-UTF-8',
+                //dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset-UTF-8',
+                //contentType: 'application/json; charset-UTF-8',
                 data: data
             });
         }
