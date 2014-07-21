@@ -1,6 +1,6 @@
 ﻿var myApp = angular.module('myApp', ['ngRoute']);
 
-myApp.config(function($routeProvider, $locationProvider) {
+myApp.config(function ($routeProvider, $locationProvider) {
 
     $routeProvider
         .when('/Home/', {
@@ -17,23 +17,47 @@ myApp.config(function($routeProvider, $locationProvider) {
 
 myApp.controller('customerCtrl', function ($scope, customerSvc) {
 
+    $scope.customer = {
+        firstName: 'John',
+        lastName: 'Doe'
+    };
+
+    var antiForgeryToken = angular.element(document.querySelector('[name=__RequestVerificationToken]'));
+
     $scope.save1 = function (customer) {
-        customerSvc.save1(customer);
+        customerSvc.save1(customer, antiForgeryToken[0].value);
     };
 
     $scope.save2 = function (customer) {
-        customerSvc.save2(customer);
+        customerSvc.save2(customer, antiForgeryToken[0].value);
     };
 
 });
 
 myApp.factory('customerSvc', function ($http) {
     return {
-        save1: function(customer) {
-            $http.post('/Home/Save1', customer); // CustomerVm
+        save1: function (customer, antiForgeryToken) {
+
+            // CustomerVm
+            $http({
+                method: 'POST',
+                url: '/Home/Save1',
+                data: customer
+            });
         },
-        save2: function (customer) {
-            $http.post('/Home/Save2', customer); // FormCollection
+        save2: function (customer, antiForgeryToken) {
+
+            var data = JSON.stringify(customer);
+
+            // FormCollection
+            $http({
+                method: 'POST',
+                url: '/Home/Save2',
+                dataType: 'json',
+                //contentType: 'application/x-www-form-urlencoded; charset-UTF-8',
+                contentType: 'application/json; charset-UTF-8',
+                data: data
+            });
         }
     };
 });
