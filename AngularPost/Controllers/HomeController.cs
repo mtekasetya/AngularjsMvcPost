@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 
 namespace AngularPost.Controllers
 {
@@ -24,9 +25,20 @@ namespace AngularPost.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
-        public ActionResult Save2(FormCollection customer)
+        [HttpGet]
+        public ActionResult Save2()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Save2(FormCollection inputRequest)
         {
             //TODO: Do some stuffs...
+            var outputRequest = Convert.ToString(inputRequest["jsonRequest"]);
+            var model = JsonConvert.DeserializeObject<CustomerVm>(outputRequest);
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }

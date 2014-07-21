@@ -1,0 +1,17 @@
+﻿@using System.Web.UI.WebControls
+@model AngularPost.Controllers.CustomerVm
+
+@{
+    ViewBag.Title = "Save2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Save2</h2>
+
+@using (Html.BeginForm("Save2", "Home"))
+{
+    @Html.TextBoxFor(m => m.FirstName, new { placeholder = "First Name" })
+    @Html.TextBoxFor(m => m.LastName, new { placeholder = "Last Name" })
+    
+    <button type="submit">Save 2</button>
+}
